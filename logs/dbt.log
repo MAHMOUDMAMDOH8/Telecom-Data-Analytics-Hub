@@ -1,0 +1,44 @@
+[0m22:51:35.517731 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024BFA55D550>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024BFDC32550>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024BFDC316D0>]}
+
+
+============================== 22:51:35.526651 | 22c6cd5a-b453-45f3-8f15-4f02882e61cd ==============================
+[0m22:51:35.526651 [info ] [MainThread]: Running with dbt=1.10.15
+[0m22:51:35.527638 [debug] [MainThread]: running dbt with arguments {'use_colors': 'True', 'printer_width': '80', 'write_json': 'True', 'log_format': 'default', 'profiles_dir': 'C:\\Users\\LOQ\\.dbt', 'warn_error': 'None', 'log_path': 'logs', 'partial_parse': 'True', 'fail_fast': 'False', 'send_anonymous_usage_stats': 'True', 'indirect_selection': 'eager', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'static_parser': 'True', 'use_experimental_parser': 'False', 'version_check': 'True', 'introspect': 'True', 'quiet': 'False', 'empty': 'None', 'log_cache_events': 'False', 'debug': 'False', 'no_print': 'None', 'invocation_command': 'dbt init', 'cache_selected_only': 'False', 'target_path': 'None'}
+[0m22:51:57.582044 [debug] [MainThread]: Starter project path: C:\Users\LOQ\AppData\Local\Programs\Python\Python311\Lib\site-packages\dbt\include\starter_project
+[0m22:51:57.731465 [info ] [MainThread]: 
+Your new dbt project "telecom_model" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m22:51:57.732486 [info ] [MainThread]: Setting up your profile.
+[0m22:53:41.735634 [info ] [MainThread]: Profile telecom_model written to C:\Users\LOQ\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m22:53:41.737798 [debug] [MainThread]: Command `dbt init` succeeded at 22:53:41.737798 after 126.33 seconds
+[0m22:53:41.738794 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024BFDC0D3D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024BFDC0C850>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024BF71A3A10>]}
+[0m22:53:41.738794 [debug] [MainThread]: Flushing usage events
+[0m22:53:42.838013 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m23:04:06.932693 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019EE4149ED0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019EE38F6AD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019EE4131A90>]}
+
+
+============================== 23:04:06.940345 | d0a40e42-5915-4f91-8eec-4e53755e3480 ==============================
+[0m23:04:06.940345 [info ] [MainThread]: Running with dbt=1.10.15
+[0m23:04:06.941513 [debug] [MainThread]: running dbt with arguments {'profiles_dir': 'C:\\Users\\LOQ\\.dbt', 'invocation_command': 'dbt snapshot', 'printer_width': '80', 'no_print': 'None', 'write_json': 'True', 'warn_error': 'None', 'static_parser': 'True', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'indirect_selection': 'eager', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'log_path': 'logs', 'use_experimental_parser': 'False', 'version_check': 'True', 'introspect': 'True', 'quiet': 'False', 'empty': 'False', 'log_cache_events': 'False', 'debug': 'False', 'log_format': 'default', 'use_colors': 'True', 'cache_selected_only': 'False', 'target_path': 'None'}
+[0m23:04:06.941513 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\share folder\Telecom Data Analytics Hub\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m23:04:06.942395 [debug] [MainThread]: Command `dbt snapshot` failed at 23:04:06.942395 after 0.12 seconds
+[0m23:04:06.942395 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019EE419A350>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019EE4199B50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019EDD5A6C50>]}
+[0m23:04:06.943394 [debug] [MainThread]: Flushing usage events
+[0m23:04:08.275394 [debug] [MainThread]: An error was encountered while trying to flush usage events

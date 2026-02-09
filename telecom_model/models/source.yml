@@ -1,0 +1,194 @@
+version: 2
+
+sources:
+  - name: telecom_row
+    database: telecom
+    schema: public
+    tables:
+      - name: agents
+        description: "List of all support agents in the system"
+        columns:
+        - name: agent_id
+          description: "Primary key"
+        - name: name
+          description: "Agent full name"
+        - name: department
+          description: "Department the agent belongs to"
+        - name: city
+          description: "City where the agent is located"
+        - name: status
+          description: "Current status of the agent (active/inactive)"
+
+      - name: cell_sites
+        description: "Information about cell tower sites"
+        columns:
+        - name: cell_id
+          description: "Primary key"
+        - name: city
+          description: "City where the cell site is located"
+        - name: latitude
+          description: "Latitude coordinate of the cell site"
+        - name: longitude
+          description: "Longitude coordinate of the cell site"
+
+      - name: devices
+        description: "Details of devices used by customers"
+        columns:
+        - name: device_sk
+          description: "Primary key"
+        - name: imei
+          description: "International Mobile Equipment Identity"
+        - name: tac
+          description: "Tac manufacturer"
+        - name: model
+          description: "Device model"
+        - name: os
+          description: "Operating system of the device"
+        - name: brand
+          description: "Device brand"
+
+      - name: users
+        description: "Customer user information"
+        columns:
+        - name: msisdn
+          description: "its a phorne number but dont have 0 at start"
+        - name: customer_type
+          description: "User's customer type (e.g., prepaid, postpaid)"
+        - name: gender
+          description: "User's gender"
+        - name: aage_groupe
+          description: "Age group of the user"
+        - name: city
+          description: "City where the user resides"
+        - name: status
+          description: "Current status of the user (active/inactive)"
+        - name: activation_date
+          description: "Date when the user was activated"
+
+      - name: call_events_raw
+        description: "Raw call event records"
+        columns:
+        - name: event_type
+          description: "Type of event"
+        - name : from_json
+          description: "JSON field containing caller information"
+        - name: to_json
+          description: "JSON field containing receiver information"
+        - name: call_type
+          description: "Type of call (e.g., local, international)"
+        - name: call_duration_seconds
+          description: "Duration of the call in seconds"
+        - name: status
+          description: "Status of the call (e.g., completed, missed)"
+        - name: behavior_profile
+          description: "Behavior profile of the caller"
+        - name: seasonal_multiplier
+          description: "Seasonal multiplier applied to the call"
+        - name: qos_metrics
+          description: "Quality of Service metrics for the call its a json field"
+        - name: billing_info
+          description: "Billing information related to the call its a json field"
+        - name: event_timestamp
+          description: "Timestamp of when the call event occurred"
+
+      - name: payment_events_raw
+        description: "Raw payment event records"
+        columns:
+        - name: event_type
+          description: "Type of payment event"
+        - name: transaction_id
+          description: "Unique identifier for the payment transaction"
+        - name: invoice_number
+          description: "Invoice number associated with the payment"
+        - name: payment_type
+          description: "Type of payment (e.g., monthly, quarterly)"
+        - name: payment_method
+          description: "Method used for the payment (e.g., credit card, PayPal)"
+        - name: status
+          description: "Status of the payment (e.g., successful, failed)"
+        - name: payment_amount
+          description: "Amount paid in the transaction"
+        - name: phone_number
+          description: "Phone number associated with the payment"
+        - name: seasonal_multiplier
+          description: "Seasonal multiplier applied to the payment"
+        - name: billing_info
+          description: "Billing information related to the payment its a json field"
+        - name: event_timestamp
+          description: "Timestamp of when the payment event occurred"
+
+      - name: sms_events_raw
+        description: "Raw SMS event records"
+        columns:
+        - name: event_type
+          description: "Type of SMS event"
+        - name: from
+          description: "JSON field containing sender information"
+        - name: to
+          description: "JSON field containing receiver information"
+        - name: body
+          description: "Content of the SMS message"
+        - name: network_metrics
+          description: "Network metrics related to the SMS its a json field"
+        - name: status
+          description: "Status of the SMS (e.g., delivered, failed)"
+        - name: seasonal_multiplier
+          description: "Seasonal multiplier applied to the SMS"
+        - name: billing_info
+          description: "Billing information related to the SMS its a json field"
+        - name: event_timestamp
+          description: "Timestamp of when the SMS event occurred"
+
+      - name: support_events_raw
+        description: "Raw support event records"
+        columns:
+        - name: event_type
+          description: "Type of support event"
+        - name: sid
+          description: "Unique identifier for the support ticket"
+        - name: agent_id
+          description: "Identifier for the support agent handling the ticket"
+        - name: channel
+          description: "Support channel used (e.g., phone, email)"
+        - name: reason
+          description: "Reason for the support ticket"
+        - name: wait_time_seconds
+          description: "Time the ticket was waiting before being assigned to an agent in seconds"
+        - name: resolution_time_seconds
+          description: "Time taken to resolve the issue in seconds"
+        - name: satisfaction_score
+          description: "Customer satisfaction score for the support interaction"
+        - name: event_timestamp
+          description: "Timestamp of when the support event occurred"
+        - name: first_call_resolution
+          description: "Whether the issue was resolved on the first call (true/false)"
+        - name: escalated
+          description: "Whether the ticket was escalated to a higher support level (true/false)"
+        - name: call_back_requested
+          description: "Whether a callback was requested by the customer (true/false)"
+          
+      - name: recharge_events_raw
+        description: "Raw recharge event records"
+        columns:
+        - name: event_type
+          description: "Type of recharge event"
+        - name: sid
+          description: "Unique identifier for the recharge transaction"
+        - name: recharge_amount
+          description: "Amount recharged in the transaction"
+        - name: balance_before
+          description: "Account balance before the recharge"
+        - name: balance_after
+          description: "Account balance after the recharge"
+        - name: payment_method
+          description: "Method used for the recharge (e.g., credit card, PayPal)"
+        - name: status
+          description: "Status of the recharge (e.g., successful, failed)"
+        - name: phone_number
+          description: "Phone number associated with the recharge"
+        - name: seasonal_multiplier
+          description: "Seasonal multiplier applied to the recharge"
+        - name: billing_info
+          description: "Billing information related to the recharge its a json field"
+        - name: event_timestamp
+          description: "Timestamp of when the recharge event occurred"

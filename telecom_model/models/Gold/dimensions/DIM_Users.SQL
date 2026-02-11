@@ -23,7 +23,7 @@ from user_selected_columns
 union all
 select
     '-1'      as user_sk,
-    Null          as phone_number,
+    '-1'          as phone_number,
     'Unknown'     as city,
     'unknown'     as status,
     'unknown'     as customer_type,

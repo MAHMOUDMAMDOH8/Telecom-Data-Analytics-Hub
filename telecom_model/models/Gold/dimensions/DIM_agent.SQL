@@ -27,7 +27,7 @@ from agent_selected_columns
 union all
 select
     '-1'      as agent_sk,
-    Null          as agent_id,
+    '-1 '         as agent_id,
     'Unknown'     as agent_name,
     'unknown'     as department,
     'unknown'     as status,

@@ -1,0 +1,526 @@
+version: 2
+
+
+models:
+  - name: Fact_Call
+    description: "Fact table for call records"
+    columns:
+      - name: call_sk
+        description: "Surrogate key for call record"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: event_type
+        description: "Type of the event (e.g., call, sms)"
+        data_tests:
+          - not_null
+
+      - name: sid
+        description: "Session ID for the call"
+        data_tests:
+          - not_null
+
+      - name: from_device_sk
+        description: "Foreign key to DIM_Device for the calling device"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Device')
+              field: device_sk
+
+      - name: to_device_sk
+        description: "Foreign key to DIM_Device for the called device"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Device')
+              field: device_sk
+
+      - name: from_imei
+        description: "IMEI of the calling device"
+
+
+      - name: to_imei
+        description: "IMEI of the called device"
+
+
+      - name: from_user_sk
+        description: "Foreign key to DIM_Users for the calling user"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Users')
+              field: user_sk
+
+      - name: to_user_sk
+        description: "Foreign key to DIM_Users for the called user"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Users')
+              field: user_sk
+
+      - name: from_cell_site_sk
+        description: "Foreign key to DIM_Cell_Site for the cell site of the calling device"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_cell_site')
+              field: cell_site_sk
+
+      - name: to_cell_site_sk
+        description: "Foreign key to DIM_Cell_Site for the cell site of the called device"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_cell_site')
+              field: cell_site_sk
+      
+      - name: status
+        description: "Status of the call (e.g., completed, dropped)"
+        data_tests:
+          - not_null
+
+      - name: call_type
+        description: "Type of the call (e.g., inbound, outbound)"
+        data_tests:
+          - not_null
+
+      - name: behavior_profile
+        description: "Behavior profile of the user based on call patterns"
+        data_tests:
+          - not_null
+
+      - name: seasonal_multiplier
+        description: "Seasonal multiplier for the call based on time of day and day of week"
+        data_tests:
+          - not_null
+
+      - name: amount
+        description: "Amount charged for the call"
+        data_tests:
+          - not_null
+
+      - name: currency
+        description: "Currency of the amount charged"
+        data_tests:
+          - not_null
+
+      - name: codec
+        description: "Codec used for the call"
+
+
+      - name: jitter_ms
+        description: "Jitter in milliseconds for the call"
+
+
+      - name: mos_score
+        description: "Mean Opinion Score for the call quality"
+
+
+      - name: packet_loss_percent
+        description: "Packet loss percentage for the call"
+
+      - name: date_sk
+        description: "Foreign key to DIM_Date for the date of the call"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Date')
+              field: date_sk
+
+      - name: time_sk
+        description: "Foreign key to DIM_Time for the time of the call"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Time')
+              field: time_sk
+
+
+  - name: Fact_SMS
+    description: "Fact table for SMS records"
+    columns:
+      - name: sms_sk
+        description: "Surrogate key for SMS record"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: event_type
+        description: "Type of the event (e.g., call, sms)"
+        data_tests:
+          - not_null
+
+      - name: sid
+        description: "Session ID for the SMS"
+        data_tests:
+          - not_null
+
+      - name: from_device_sk
+        description: "Foreign key to DIM_Device for the sending device"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Device')
+              field: device_sk
+
+      - name: to_device_sk
+        description: "Foreign key to DIM_Device for the receiving device"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Device')
+              field: device_sk
+
+      - name: from_imei
+        description: "IMEI of the sending device"
+
+
+      - name: to_imei
+        description: "IMEI of the receiving device"
+
+
+      - name: from_user_sk
+        description: "Foreign key to DIM_Users for the sending user"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Users')
+              field: user_sk
+
+      - name: to_user_sk
+        description: "Foreign key to DIM_Users for the receiving user"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Users')
+              field: user_sk
+
+      - name: from_cell_site_sk
+        description: "Foreign key to DIM_Cell_Site for the cell site of the sending device"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_cell_site')
+              field: cell_site_sk
+
+      - name: to_cell_site_sk
+        description: "Foreign key to DIM_Cell_Site for the cell site of the receiving device"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_cell_site')
+              field: cell_site_sk
+      
+      - name: status
+        description: "Status of the SMS (e.g., delivered, failed)"
+        data_tests:
+          - not_null
+
+      - name: body
+        description: "Content of the SMS"
+
+
+      - name: registration_date
+        description: "Registration date of the user sending the SMS"
+
+      - name: seasonal_multiplier
+        description: "Seasonal multiplier for the SMS based on time of day and day of week"
+        data_tests:
+          - not_null
+
+      - name: amount
+        description: "Amount charged for the SMS"
+        data_tests:
+          - not_null
+
+      - name: currency
+        description: "Currency of the amount charged" 
+        data_tests:
+          - not_null
+
+      - name: date_sk
+        description: "Foreign key to DIM_Date for the date of the SMS"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Date')
+              field: date_sk
+      
+      - name: time_sk
+        description: "Foreign key to DIM_Time for the time of the SMS"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Time')
+              field: time_sk
+
+  - name: Fact_payment
+    description: "Fact table for payment records"
+    columns:
+      - name: payment_sk
+        description: "Surrogate key for payment record"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: event_type
+        description: "Type of the payment event (e.g., subscription, top-up)"
+        data_tests:
+          - not_null
+
+      - name: sid
+        description: "Session ID for the payment event"
+        data_tests:
+          - not_null
+
+      - name: transaction_id
+        description: "Unique transaction ID for the payment"
+
+      - name: invoice_number
+        description: "Invoice number for the payment"
+
+      - name: payment_type
+        description: "Type of payment (e.g., subscription, top-up)"
+        data_tests:
+          - not_null
+
+      - name: payment_amount
+        description: "Method of payment (e.g., credit card, PayPal)"
+        data_tests:
+          - not_null
+      
+      - name: from_user_sk
+        description: "Foreign key to DIM_Users for the user making the payment"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Users')
+              field: user_sk
+
+      - name: to_user_sk
+        description: "Foreign key to DIM_Users for the user receiving the payment (e.g., recipient of a refund or transfer)"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Users')
+              field: user_sk
+
+      - name: status
+        description: "Status of the payment (e.g., completed, failed)"
+        data_tests:
+          - not_null
+
+      - name: amount
+        description: "Amount of the payment"
+        data_tests:
+          - not_null
+
+      - name: currency
+        description: "Currency of the payment amount"
+        data_tests:
+          - not_null
+      
+      - name: date_sk
+        description: "Foreign key to DIM_Date for the date of the payment"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Date')
+              field: date_sk
+      
+      - name: time_sk
+        description: "Foreign key to DIM_Time for the time of the payment"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Time')
+              field: time_sk
+
+  - name: Fact_recharge 
+    description: "Fact table for recharge records"
+    columns:
+      - name: recharge_sk
+        description: "Surrogate key for recharge record"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: event_type
+        description: "Type of the recharge event (e.g., prepaid, postpaid)"
+        data_tests:
+          - not_null
+
+      - name: sid
+        description: "Session ID for the recharge event"
+        data_tests:
+          - not_null
+
+      - name: recharge_amount
+        description: "Amount of the recharge"
+        data_tests:
+          - not_null
+
+      - name: balance_before
+        description: "Balance before the recharge"
+        data_tests:
+          - not_null
+
+      - name: balance_after
+        description: "Balance after the recharge"
+        data_tests:
+          - not_null
+
+      - name: payment_method
+        description: "Payment method used for the recharge (e.g., credit card, PayPal)"
+        data_tests:
+          - not_null
+
+      - name: from_user_sk
+        description: "Foreign key to DIM_Users for the user making the recharge"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Users')
+              field: user_sk
+      
+      - name: to_user_sk
+        description: "Foreign key to DIM_Users for the user receiving the recharge (e.g., recipient of a transfer)"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Users')
+              field: user_sk
+
+      - name: recharge_phone_number_to
+        description: "Phone number receiving the recharge"
+        data_tests:
+          - not_null
+
+      - name: status
+        description: "Status of the recharge (e.g., completed, failed)"
+        data_tests:
+          - not_null
+      
+      - name: date_sk
+        description: "Foreign key to DIM_Date for the date of the recharge"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Date')
+              field: date_sk
+      
+      - name: time_sk
+        description: "Foreign key to DIM_Time for the time of the recharge"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Time')
+              field: time_sk
+
+      - name: amount
+        description: "Amount of the recharge"
+        data_tests:
+          - not_null
+
+      - name: currency
+        description: "Currency of the recharge amount"
+        data_tests:
+          - not_null
+
+  - name: Fact_Support
+    description: "Fact table for support ticket records"
+    columns:
+      - name: support_sk
+        description: "Surrogate key for support ticket record"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: event_type
+        description: "Type of the support event (e.g., technical issue, billing inquiry)"
+        data_tests:
+          - not_null
+
+      - name: sid
+        description: "Session ID for the support interaction"
+        data_tests:
+          - not_null
+
+      - name: user_sk
+        description: "Foreign key to DIM_Users for the user reporting the issue"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Users')
+              field: user_sk
+
+
+      - name: customer
+        description: "Customer name or identifier for the support ticket"
+
+      - name: agent_sk
+        description: "Foreign key to DIM_Agent for the agent handling the support ticket"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_agent')
+              field: agent_sk
+
+      - name: channel
+        description: "Channel through which the support ticket was created (e.g., phone, email, chat)"
+        data_tests:
+          - not_null
+
+      - name: reason
+        description: "Reason for the support ticket (e.g., billing inquiry, technical issue)"
+        data_tests:
+          - not_null
+
+      - name: wait_time_seconds
+        description: "Wait time in seconds for the support ticket"
+        data_tests:
+          - not_null
+      
+      - name: resolution_time_seconds
+        description: "Resolution time in seconds for the support ticket"
+        data_tests:
+          - not_null
+
+      - name: satisfaction_score
+        description: "Customer satisfaction score for the support interaction"
+        data_tests:
+          - not_null
+
+      - name: first_call_resolution
+        description: "Indicator of whether the issue was resolved in the first call (e.g., true, false)"
+        data_tests:
+          - not_null
+      
+      - name: escalated
+        description: "Indicator of whether the support ticket was escalated to a higher level of support (e.g., true, false)"
+        data_tests:
+          - not_null
+
+      - name: call_back_requested
+        description: "Indicator of whether a call back was requested by the customer (e.g., true, false)"
+        data_tests:
+          - not_null
+
+      - name: date_sk
+        description: "Foreign key to DIM_Date for the date of the support ticket"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Date')
+              field: date_sk
+      
+      - name: time_sk
+        description: "Foreign key to DIM_Time for the time of the support ticket"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('DIM_Time')
+              field: time_sk

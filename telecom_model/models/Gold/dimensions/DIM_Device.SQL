@@ -21,9 +21,9 @@ from device_selected_columns
 union all
 select
     '-1'      as device_sk,
-    Null          as tac,
+    '-1'          as tac,
     'Unknown'     as brand,
     'Unknown'     as model,
-    Null          as imei,
+    '-1'          as imei,
     null          as dbt_valid_from,
     null          as dbt_valid_to

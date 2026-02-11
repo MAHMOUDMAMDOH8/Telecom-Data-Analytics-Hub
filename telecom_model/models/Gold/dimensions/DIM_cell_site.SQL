@@ -22,10 +22,10 @@ from cell_site_selected_columns
 union all
 select
     '-1'      as cell_site_sk,
-    Null          as cell_id,
+    '-1'          as cell_id,
     'Unknown'     as cell_site_name,
     'unknown'     as city,
-    null          as latitude,
-    null          as longitude,
+    0          as latitude,
+    0          as longitude,
     null          as dbt_valid_from,
     null          as dbt_valid_to

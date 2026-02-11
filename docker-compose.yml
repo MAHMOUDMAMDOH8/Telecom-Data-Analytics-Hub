@@ -103,7 +103,7 @@ services:
     container_name: postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: '8122'
+      POSTGRES_PASSWORD: '7412'
       POSTGRES_DB: telecom
     volumes:
       - postgres_data:/var/lib/postgresql/data

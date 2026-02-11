@@ -1,7 +1,7 @@
 import pandas as pd
 from sqlalchemy import create_engine
 
-conn = create_engine('postgresql://postgres:8122@localhost:5432/telecom')
+conn = create_engine('postgresql://postgres:7412@localhost:5432/telecom')
 tables = ["users", "cell_sites", "devices", "agents"]
 
 user_path = 'C:\\share folder\\Telecom Data Analytics Hub\\source\\telecom-generator\\DIM_USER.json'

@@ -22,7 +22,7 @@ union all
 select
     '-1'      as device_sk,
     '-1'          as tac,
-    'Unknown'     as brand,
+    'unknown'     as brand,
     'Unknown'     as model,
     '-1'          as imei,
     null          as dbt_valid_from,

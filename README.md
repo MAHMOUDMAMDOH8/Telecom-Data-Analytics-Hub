@@ -1,8 +1,21 @@
-# Telecom Data Analytics Hub
+## Telecom Data Analytics Hub
 
 A comprehensive end-to-end data analytics platform for telecom operations, featuring real-time data ingestion, streaming, and advanced analytics using modern data engineering tools and techniques.
 
 ![Pipeline Architecture](image/pipeline%20arch.png)
+
+## 📚 Project Index
+
+- **Project Overview**: High-level description of the use case and business context.  
+- **Architecture**: End-to-end pipeline from API → Kafka → NiFi → PostgreSQL → dbt → Power BI.  
+- **Data Model Schema**: Mermaid ER diagrams for Bronze and Gold layers (facts & dimensions).  
+- **dbt & SQL Expertise**: Highlights of modelling, performance tuning, and best practices.  
+- **Project Structure**: File/folder layout of the repository.  
+- **Getting Started**: How to run Docker, initialize the database, and execute dbt.  
+- **Key Features**: Main capabilities of the platform.  
+- **Skills Demonstrated**: Summary of dbt, SQL, and data engineering skills.  
+- **Services & Ports**: Quick reference for all running services.  
+- **Data Sources**: Types of telecom events being processed.  
 
 ## 🏗️ Project Overview
 
@@ -530,10 +543,65 @@ Implemented dbt snapshots to track historical changes:
 
 ### 5. **Data Quality & Testing**
 
-- Test configuration with failure storage
-- Data validation in transformation logic
-- Null checks and data quality filters
-- Error logging table structure
+dbt tests are configured across the project to ensure data integrity and quality:
+
+#### Test Configuration
+- **Failure Storage**: All test failures are stored in a custom schema `_sad_test_failures` for investigation
+- **Test-Driven Development**: Comprehensive testing at dimension and fact table levels
+
+#### Generic Tests Implemented
+
+**Uniqueness & Primary Keys**
+```sql
+- not_null: Ensures surrogate keys and business keys are always populated
+- unique: Validates that surrogate keys (agent_sk, device_sk, user_sk, etc.) are unique
+```
+
+**Referential Integrity**
+```sql
+- relationships: Validates foreign key constraints
+  Examples:
+  - from_device_sk → DIM_Device.device_sk
+  - from_user_sk → DIM_Users.user_sk
+  - from_cell_site_sk → DIM_cell_site.cell_site_sk
+  - date_sk → DIM_Date.date_sk
+  - time_sk → DIM_Time.time_sk
+```
+
+#### Test Coverage by Layer
+
+**Dimensions Testing**
+- ✅ Agent dimension: Surrogate key uniqueness, natural key validation
+- ✅ Cell Site dimension: Location data validation, coordinate not-null checks
+- ✅ Device dimension: IMEI, TAC, brand/model validation
+- ✅ Users dimension: Phone number, demographic attributes validation
+- ✅ Time dimension: Time key uniqueness and bounds validation
+- ✅ Date dimension: Calendar attributes integrity
+
+**Fact Tables Testing**
+- ✅ Fact_Call: Call keys, device/user relationships, QoS metrics validation
+- ✅ Fact_SMS: SMS keys, sender/receiver relationships validation
+- ✅ Fact_payment: Transaction keys, amount/currency validation
+- ✅ Fact_recharge: Recharge amount, balance validation
+- ✅ Fact_Support: Support ticket relationships, timestamp validation
+
+#### Test Execution
+```bash
+# Run all tests
+dbt test
+
+# Run tests for specific model
+dbt test -s <model_name>
+
+# Run with failure inspection
+dbt test --store-failures  # Tests stored in _sad_test_failures schema
+```
+
+#### Data Validation Features
+- Null checks on critical business attributes
+- Surrogate key uniqueness across all dimensions and facts
+- Foreign key relationship validation across star schema
+- Automatic test failure documentation for troubleshooting
 
 ## 📁 Project Structure
 
@@ -638,6 +706,9 @@ Telecom Data Analytics Hub/
 ✅ Model organization and tagging  
 ✅ Configuration management  
 ✅ dbt project structure best practices  
+✅ Generic tests (not_null, unique, relationships)  
+✅ Test failure storage and investigation  
+✅ Data quality enforcement across layers  
 
 ### SQL Expertise
 ✅ Complex JSON parsing and extraction  

@@ -24,11 +24,20 @@ models:
         description: "Department the agent belongs to"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["Sales", "Billing", "Technical Support","unknown","Customer Service","Retention","Complaints","Activation"]
+                quote_values: true 
+
 
       - name: status
         description: "Employment status of the agent"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["Active", "On Leave","Training","unknown"]
+                quote_values: true
 
   - name: DIM_cell_site
     description: "Cell site dimension table"
@@ -58,11 +67,17 @@ models:
         description: "Latitude of the cell site"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              arguments:
+                column_type: "FLOAT"
 
       - name: longitude
         description: "Longitude of the cell site"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              arguments:
+                column_type: "FLOAT"
 
   - name: DIM_Device
     description: "Device dimension table"
@@ -82,6 +97,10 @@ models:
         description: "Brand of the device"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["Apple", "Samsung", "Huawei", "Xiaomi", "Oppo", "Vivo", "OnePlus", "Motorola", "Nokia", "Sony","unknown"]
+                quote_values: true
 
       - name: model
         description: "Model of the device"
@@ -116,16 +135,28 @@ models:
         description: "Status of the user (e.g., active, inactive)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["Active", "inactive","suspended","terminated"]
+                quote_values: true
 
       - name: customer_type
         description: "Type of customer (e.g., residential, business)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["Prepaid", "Postpaid","unknown"]
+                quote_values: true
         
       - name: gender
         description: "Gender of the user"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["Male", "Female", "unknown"]
+                quote_values: true
 
       - name: age_group
         description: "Age group of the user"

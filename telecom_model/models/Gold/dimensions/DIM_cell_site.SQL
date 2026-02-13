@@ -10,8 +10,8 @@ with cell_site_selected_columns as (
         cell_id,
         site_name as cell_site_name,
         city,
-        latitude,
-        longitude,
+        latitude::FLOAT as latitude,
+        longitude::FLOAT as longitude,
         dbt_valid_from,
         dbt_valid_to
     from {{ ref('cell_site') }}
@@ -25,7 +25,7 @@ select
     '-1'          as cell_id,
     'Unknown'     as cell_site_name,
     'unknown'     as city,
-    0          as latitude,
-    0          as longitude,
+    0.0::FLOAT          as latitude,
+    0.0::FLOAT          as longitude,
     null          as dbt_valid_from,
     null          as dbt_valid_to

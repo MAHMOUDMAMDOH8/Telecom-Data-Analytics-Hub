@@ -9,7 +9,14 @@ with user_selected_columns as (
         user_sk,
         phone_number,
         city ,
-        status,
+        case 
+            when lower(trim(status)) = 'active' then 'Active'
+            when lower(trim(status)) = 'inactive' then 'inactive'
+            when lower(trim(status)) = 'suspended' then 'suspended'
+            when lower(trim(status)) = 'terminated' then 'terminated'
+            when lower(trim(status)) in ('unknown', '') or status is null then 'unknown'
+            else trim(status) 
+        end as status,
         customer_type,
         gender,
         age_group,

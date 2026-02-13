@@ -69,7 +69,7 @@ models:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               arguments:
-                column_type: "FLOAT"
+                column_type: "double precision"
 
       - name: longitude
         description: "Longitude of the cell site"
@@ -77,7 +77,7 @@ models:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               arguments:
-                column_type: "FLOAT"
+                column_type: "double precision"
 
   - name: DIM_Device
     description: "Device dimension table"
@@ -137,7 +137,7 @@ models:
           - not_null
           - dbt_expectations.expect_column_values_to_be_in_set:
               arguments:
-                value_set: ["Active", "inactive","suspended","terminated"]
+                value_set: ["Active", "inactive","suspended","terminated","unknown"]
                 quote_values: true
 
       - name: customer_type

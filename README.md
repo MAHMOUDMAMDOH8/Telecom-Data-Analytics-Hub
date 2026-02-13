@@ -1,6 +1,7 @@
 ## Telecom Data Analytics Hub
 
-A comprehensive end-to-end data analytics platform for telecom operations, featuring real-time data ingestion, streaming, and advanced analytics using modern data engineering tools and techniques.
+An end-to-end **telecom analytics platform** that I designed and built to show how real-world telco data can be transformed into trustworthy, analytics-ready insights.  
+This project brings together streaming, orchestration, warehousing, and modelling into one cohesive story—from raw events on Kafka all the way to business-ready facts and dimensions.
 
 ![Pipeline Architecture](image/pipeline%20arch.png)
 
@@ -8,6 +9,7 @@ A comprehensive end-to-end data analytics platform for telecom operations, featu
 
 - **Project Overview**: High-level description of the use case and business context.  
 - **Architecture**: End-to-end pipeline from API → Kafka → NiFi → PostgreSQL → dbt → Power BI.  
+- **NiFi Flow Design**: Kafka topic ingestion, JSON validation, routing, and error handling.  
 - **Data Model Schema**: Mermaid ER diagrams for Bronze and Gold layers (facts & dimensions).  
 - **dbt & SQL Expertise**: Highlights of modelling, performance tuning, and best practices.  
 - **Project Structure**: File/folder layout of the repository.  
@@ -19,7 +21,9 @@ A comprehensive end-to-end data analytics platform for telecom operations, featu
 
 ## 🏗️ Project Overview
 
-This project implements a complete data pipeline for telecom data analytics, processing call events, SMS, payments, recharges, and customer support interactions. The architecture follows industry best practices with a medallion (Bronze/Silver/Gold) data architecture pattern, enabling scalable and maintainable data transformations.
+This project implements a complete data pipeline for telecom analytics, processing call events, SMS, payments, recharges, and customer support interactions in a way that mirrors real telecom operations.  
+The architecture follows industry best practices with a **medallion (Bronze/Silver/Gold) pattern**, showing how to incrementally clean, model, and serve data for analytics at scale.  
+If you are a data engineer, analyst, or hiring manager, this repository is meant to be a **transparent, end-to-end showcase** of how I think about data quality, performance, and maintainability.
 
 ## 🛠️ Technology Stack
 
@@ -52,7 +56,19 @@ This project implements a complete data pipeline for telecom data analytics, pro
 4. **Transformation**: dbt transforms data through Bronze → Gold layers
 5. **Analytics**: Gold layer provides dimensional models for business intelligence
 
+## 🔄 NiFi Flow Design & Error Handling
+
+- **Kafka Topic Coverage**: NiFi manages **55 Kafka topics**, with each topic handled by its own flow so that ingestion, monitoring, and replay can be controlled independently.  
+- **JSON Evaluation & Cleaning**: Each flow consumes messages from its Kafka topic, evaluates the JSON payload, normalizes fields, and applies validation rules (required fields, data types, ranges, and business checks).  
+- **Routing of Valid Data**: Records that pass validation are routed to `row_event` tables in PostgreSQL, one per business table (Calls, SMS, Payment, Recharge, Support, etc.), ready for downstream Bronze/dbt processing.  
+- **Centralized Error Handling**: Invalid or malformed records are routed to an error path that inserts a detailed error record into a dedicated database table (including topic name, partition/offset, error reason, and timestamp).  
+- **Alerting**: For flows that encounter issues, NiFi sends email notifications summarizing the failure context so problems can be investigated quickly (which topic, which flow, and what validation failed).  
+
 ## 📐 Data Model Schema
+
+Below is the **dbt lineage graph** that connects raw `row_event` tables and CDC snapshots to dimensions and fact tables:
+
+![dbt Lineage Graph](image/dbt%20lineage.png)
 
 ### Bronze Layer Schema
 
@@ -690,6 +706,10 @@ Telecom Data Analytics Hub/
 - **Change Data Capture**: Historical tracking via dbt snapshots
 - **Incremental Updates**: Efficient processing of large datasets
 
+### Data Quality & Testing
+- **Automated dbt Tests**: Extensive `not_null`, `unique`, `relationships`, and custom tests on both Bronze and Gold models to validate data before it is used for analytics.  
+- **Quality Monitoring**: All test failures are stored and reviewed, turning data quality issues into actionable feedback to improve the pipeline.
+
 ### Analytics Ready
 - **Star Schema**: Optimized for analytical queries
 - **Time-based Analysis**: Comprehensive date and time dimensions
@@ -757,5 +777,5 @@ This project is for portfolio and demonstration purposes.
 
 ---
 
-**Built with expertise in dbt, SQL, and modern data engineering practices.**
+**Built with expertise in dbt, SQL, NIFI and modern data engineering practices.**
 

@@ -62,39 +62,7 @@ CREATE TABLE call_events_raw (
     event_timestamp       TEXT null
 );
 
-INSERT into call_events_raw
-(
-    event_type,
-    sid,
-    from_json,
-    to_json,
-    call_duration_seconds,
-    status,
-    call_type,
-    phone_number,
-    customer,
-    behavior_profile,
-    seasonal_multiplier,
-    billing_info,
-    qos_metrics,
-    event_timestamp
-)
-VALUES(
-    '${event_type}',
-    '${sid}',
-    COALESCE(NULLIF('${from_json}',''), '{}'),
-    COALESCE(NULLIF('${to_json}',''), '{}'),
-    COALESCE(NULLIF('${call_duration_seconds}','')::INTEGER, 0),
-    '${status}',
-    '${call_type}',
-    '${phone_number}',
-    '${customer}',
-    '${behavior_profile}',
-    '${seasonal_multiplier}',
-    '${billing_info}',
-    '${qos_metrics}',
-    '${event_timestamp}'
-)
+
 
 CREATE TABLE payment_events_raw (
     event_type          TEXT,
@@ -150,82 +118,8 @@ CREATE TABLE support_events_raw (
 );
 
 
-INSERT INTO support_events_raw
-(
-    event_type,
-    sid,
-    customer,
-    phone_number,
-    channel,
-    reason,
-    wait_time_seconds,
-    resolution_time_seconds,
-    agent_id,
-    satisfaction_score,
-    first_call_resolution,
-    escalated,
-    call_back_requested,
-    event_timestamp
-)
-VALUES
-(
-    '${event_type}',
-    '${sid}',
-    '${customer}',
-    '${phone_number}',
-    COALESCE(NULLIF('${channel}',''), 'unknown'),
-    COALESCE(NULLIF('${reason}',''), 'unknown'),
-    COALESCE(NULLIF('${wait_time_seconds}','')::NUMERIC, 0),
-    COALESCE(NULLIF('${resolution_time_seconds}','')::NUMERIC, 0),
-    COALESCE(NULLIF('${agent_id}',''), 'unknown'),
-    COALESCE(NULLIF('${satisfaction_score}','')::NUMERIC, 0),
-    COALESCE(NULLIF('${first_call_resolution}','')::BOOLEAN, FALSE),
-    COALESCE(NULLIF('${escalated}','')::BOOLEAN, FALSE),
-    COALESCE(NULLIF('${call_back_requested}','')::BOOLEAN, FALSE),
-    COALESCE(
-        NULLIF('${event_timestamp}','')::timestamp,
-        now()
-    )
-);
 
 
-INSERT INTO recharge_events_raw
-(
-    event_type,
-    sid,
-    recharge_amount,
-    balance_before,
-    balance_after,
-    payment_method,
-    status,
-    phone_number,
-    customer,
-    seasonal_multiplier,
-    billing_info,
-    event_timestamp
-)
-VALUES
-(
-    '${event_type}',
-    '${sid}',
 
-    COALESCE(NULLIF('${recharge_amount}','')::NUMERIC, 0),
-    COALESCE(NULLIF('${balance_before}','')::NUMERIC, 0),
-    COALESCE(NULLIF('${balance_after}','')::NUMERIC, 0),
 
-    COALESCE(NULLIF('${payment_method}',''), 'unknown'),
-    '${status}',
-
-    '${phone_number}',
-    '${customer}',
-
-    COALESCE(NULLIF('${seasonal_multiplier}','')::NUMERIC, 1.0),
-
-    COALESCE(NULLIF('${billing_info}',''), '{}')::jsonb,
-
-    COALESCE(
-        NULLIF('${event_timestamp}','')::timestamp,
-        now()
-    )
-);
 

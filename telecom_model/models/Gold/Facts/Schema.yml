@@ -15,6 +15,9 @@ models:
         description: "Type of the event (e.g., call, sms)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["call"]
 
       - name: sid
         description: "Session ID for the call"
@@ -81,21 +84,32 @@ models:
         description: "Status of the call (e.g., completed, dropped)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["completed", "in-progress"]
 
       - name: call_type
         description: "Type of the call (e.g., inbound, outbound)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["Local", "International"]
 
       - name: behavior_profile
         description: "Behavior profile of the user based on call patterns"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["international", "light_user", "heavy_streamer","gamer","business_user","social_media"]
 
       - name: seasonal_multiplier
         description: "Seasonal multiplier for the call based on time of day and day of week"
         data_tests:
           - not_null
+
+
 
       - name: amount
         description: "Amount charged for the call"
@@ -106,6 +120,10 @@ models:
         description: "Currency of the amount charged"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["USD", "EUR", "GBP", "EGP", "JPY"]
+                quote_values: true
 
       - name: codec
         description: "Codec used for the call"
@@ -152,6 +170,9 @@ models:
         description: "Type of the event (e.g., call, sms)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["sms"]
 
       - name: sid
         description: "Session ID for the SMS"
@@ -218,6 +239,9 @@ models:
         description: "Status of the SMS (e.g., delivered, failed)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["delivered", "sent", "failed"]
 
       - name: body
         description: "Content of the SMS"
@@ -240,6 +264,10 @@ models:
         description: "Currency of the amount charged" 
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["USD", "EUR", "GBP", "EGP", "JPY"]
+                quote_values: true
 
       - name: date_sk
         description: "Foreign key to DIM_Date for the date of the SMS"
@@ -270,6 +298,9 @@ models:
         description: "Type of the payment event (e.g., subscription, top-up)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["payment"]
 
       - name: sid
         description: "Session ID for the payment event"
@@ -286,11 +317,16 @@ models:
         description: "Type of payment (e.g., subscription, top-up)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["Bill Payment", "Subscription", "Late Fee", "Service Fee","Plan Upgrade"]
 
       - name: payment_amount
         description: "Method of payment (e.g., credit card, PayPal)"
         data_tests:
           - not_null
+
+
       
       - name: from_user_sk
         description: "Foreign key to DIM_Users for the user making the payment"
@@ -312,6 +348,9 @@ models:
         description: "Status of the payment (e.g., completed, failed)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["failed", "success", "pending","refunded"]
 
       - name: amount
         description: "Amount of the payment"
@@ -322,6 +361,10 @@ models:
         description: "Currency of the payment amount"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["USD", "EUR", "GBP", "EGP", "JPY"]
+                quote_values: true
       
       - name: date_sk
         description: "Foreign key to DIM_Date for the date of the payment"
@@ -352,6 +395,9 @@ models:
         description: "Type of the recharge event (e.g., prepaid, postpaid)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["recharge"]
 
       - name: sid
         description: "Session ID for the recharge event"
@@ -377,6 +423,7 @@ models:
         description: "Payment method used for the recharge (e.g., credit card, PayPal)"
         data_tests:
           - not_null
+          
 
       - name: from_user_sk
         description: "Foreign key to DIM_Users for the user making the recharge"
@@ -403,6 +450,9 @@ models:
         description: "Status of the recharge (e.g., completed, failed)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["failed", "success", "pending","processing"]
       
       - name: date_sk
         description: "Foreign key to DIM_Date for the date of the recharge"
@@ -429,6 +479,10 @@ models:
         description: "Currency of the recharge amount"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["USD", "EUR", "GBP", "EGP", "JPY"]
+                quote_values: true
 
   - name: Fact_Support
     description: "Fact table for support ticket records"
@@ -443,6 +497,9 @@ models:
         description: "Type of the support event (e.g., technical issue, billing inquiry)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["support"]
 
       - name: sid
         description: "Session ID for the support interaction"
@@ -473,6 +530,9 @@ models:
         description: "Channel through which the support ticket was created (e.g., phone, email, chat)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["store", "chat", "social_media", "phone", "email","ivr"]
 
       - name: reason
         description: "Reason for the support ticket (e.g., billing inquiry, technical issue)"
@@ -498,16 +558,26 @@ models:
         description: "Indicator of whether the issue was resolved in the first call (e.g., true, false)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              arguments:
+                column_type: "boolean"
       
       - name: escalated
         description: "Indicator of whether the support ticket was escalated to a higher level of support (e.g., true, false)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              arguments:
+                column_type: "boolean"
+
 
       - name: call_back_requested
         description: "Indicator of whether a call back was requested by the customer (e.g., true, false)"
         data_tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              arguments:
+                column_type: "boolean"
 
       - name: date_sk
         description: "Foreign key to DIM_Date for the date of the support ticket"

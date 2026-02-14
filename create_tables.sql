@@ -229,4 +229,3 @@ VALUES
     )
 );
 
-INSERT INTO sms_events_raw (event_type, sid, "from", "to", body, status, phone_number, customer, registration_date, seasonal_multiplier, billing_info, network_metrics, event_timestamp) VALUES ('${clean.event_type}', '${clean.sid}', '${clean.from_json}'::jsonb, '${clean.to_json}'::jsonb, '${clean.body}', '${clean.status}', '${clean.phone_number}', '${clean.customer}', ${clean.registration_date:isEmpty():ifElse('NULL', "'" + ${clean.registration_date} + "'")}, ${clean.seasonal_multiplier}, '${clean.billing_info}'::jsonb, '${clean.network_metrics}'::jsonb, COALESCE('${event_timestamp}', now()))

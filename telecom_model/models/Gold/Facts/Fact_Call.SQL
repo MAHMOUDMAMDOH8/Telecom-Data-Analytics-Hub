@@ -41,7 +41,7 @@ with Fact_call as (
         c.call_type,
         c.behavior_profile,
         c.seasonal_multiplier,
-        c.amount,
+        c.amount ::FLOAT as amount,
         c.currency,
         c.codec,
         c.jitter_ms,

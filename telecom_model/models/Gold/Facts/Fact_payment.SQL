@@ -26,7 +26,7 @@ with Fact_payment as (
         COALESCE(from_user.user_sk, '-1') as from_user_sk,
         COALESCE(to_user.user_sk, '-1') as to_user_sk,
         p.status,
-        amount,
+        amount ::FLOAT as amount,
         currency,
         seasonal_multiplier,
         COALESCE(md5(TO_CHAR(event_timestamp, 'YYYY-MM-DD')), md5('1970-01-01')) AS date_sk,

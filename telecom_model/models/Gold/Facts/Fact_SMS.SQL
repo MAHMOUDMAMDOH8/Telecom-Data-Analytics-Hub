@@ -32,7 +32,7 @@ with Fact_sms as (
         body,
         registration_date,
         seasonal_multiplier,
-        amount,
+        amount::FLOAT as amount,
         currency,
         COALESCE(md5(TO_CHAR(event_timestamp, 'YYYY-MM-DD')), md5('1970-01-01')) AS date_sk,
         COALESCE(EXTRACT(MINUTE FROM event_timestamp), 0) AS time_sk

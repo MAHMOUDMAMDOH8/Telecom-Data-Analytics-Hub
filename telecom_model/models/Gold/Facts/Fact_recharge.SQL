@@ -27,7 +27,7 @@ with Fact_recharge as (
         COALESCE(to_user.user_sk, '-1') as to_user_sk,
         recharge_phone_number_to,
         r.status,
-        amount,
+        amount::FLOAT as amount,
         currency,
         seasonal_multiplier,
         COALESCE(md5(TO_CHAR(event_timestamp, 'YYYY-MM-DD')), md5('1970-01-01')) AS date_sk,
